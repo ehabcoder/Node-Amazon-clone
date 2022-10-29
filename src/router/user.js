@@ -17,6 +17,12 @@ const upload = multer({
     }
 })
 
+// is email available?
+router.post('/users/email', userController.emailAvailable);
+
+// is signed in?
+router.get('/users/signedin', auth, userController.signedin)
+
 // Register
 router.post('/users/register', userController.register);
 

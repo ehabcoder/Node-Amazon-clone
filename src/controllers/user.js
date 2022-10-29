@@ -1,6 +1,20 @@
 const User = require('../models/User');
 const sharp = require('sharp');
 
+exports.emailAvailable = async (req, res) => {
+    try {
+        const user = await User.findOne({email});
+        if(!user) return res.status(200).send({available: true});
+        else return res.status(400).send({available: false});
+    } catch (e) {
+        res.status(400).send(e.message);
+    }
+}
+
+exports.signedin = async(req, res) => {
+    return res.status(200).send({authenticated: true});
+}
+
 exports.register = async (req, res) => {
     const user = new User(req.body);
     try {
